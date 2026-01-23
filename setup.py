@@ -36,6 +36,14 @@ setup(
         "curast",
     ],
     ext_modules=[
+        CUDAExtension(
+            name="curast.cuda",
+            sources=[
+                "src/curast/cuda/octree/data_structure.cu",
+                "src/curast/cuda/octree/forward.cu"
+            ],
+            extra_compile_args=extra_compile_args
+        )
     ],
     cmdclass={
         "build_ext": BuildExtension
