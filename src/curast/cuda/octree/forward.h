@@ -1,8 +1,6 @@
 #include <cstdint>
 #include <functional>
 
-static uint32_t get_higher_msb(uint32_t n);
-
 namespace OctreeVoxelRasterizer {
 
     /**
@@ -49,7 +47,7 @@ namespace OctreeVoxelRasterizer {
         const float scale_modifier,
         const float* viewmatrix,
         const float* projmatrix,
-        const float3* cam_pos,
+        const float* cam_pos,
         const float tan_fovx,
         const float tan_fovy,
         float* out_color,
