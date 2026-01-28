@@ -34,7 +34,6 @@ setup(
     name="curast",
     packages=[
         "curast",
-        "curast.cuda"
     ],
     ext_modules=[
         CUDAExtension(
@@ -42,6 +41,7 @@ setup(
             sources=[
                 "src/curast/cuda/octree/data_structure.cu",
                 "src/curast/cuda/octree/forward.cu",
+                "src/curast/cuda/octree/api.cpp",
                 "src/curast/cuda/ext.cpp"
             ],
             extra_compile_args=extra_compile_args
