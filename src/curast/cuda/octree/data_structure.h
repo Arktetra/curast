@@ -1,16 +1,25 @@
 #pragma once
 
-#include<cstdint>
-#include<cstdlib>
-#include<cuda_runtime_api.h>
+#include <cstdint>
+#include <cstdlib>
+#include <cuda_runtime_api.h>
+#include "config.h"
 
 namespace OctreeVoxelRasterizer {
 
     template<typename T>
-    static void obtain(char*& chunk, T*& ptr, size_t count, size_t alignment);
+    static void obtain(char*& chunk, T*& ptr, size_t count, size_t alignment) {
+        size_t offset = (reinterpret_cast<uintptr_t>(chunk) + alignment - 1) & ~(alignment - 1);
+        ptr = reinterpret_cast<T*>(offset);
+        chunk = reinterpret_cast<char*>(ptr + count);
+    }
 
     template<typename T>
-    size_t required_size(size_t N);
+    size_t required_size(size_t N) {
+        char* size = nullptr;
+        T::from_chunk(size, N);
+        return (reinterpret_cast<uintptr_t>(size) + MEM_ALIGNMENT - 1) & ~(MEM_ALIGNMENT - 1);
+    }
 
     struct GeometryState {
         size_t scan_size;

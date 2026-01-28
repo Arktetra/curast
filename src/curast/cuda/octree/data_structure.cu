@@ -2,19 +2,6 @@
 #include "data_structure.h"
 #include "config.h"
 
-template<typename T>
-static void OctreeVoxelRasterizer::obtain(char*& chunk, T*& ptr, size_t count, size_t alignment) {
-    size_t offset = (reinterpret_cast<uintptr_t>(chunk) + alignment - 1) & ~(alignment - 1);
-    ptr = reinterpret_cast<T*>(offset);
-    chunk = reinterpret_cast<char*>(ptr + count);
-}
-
-template<typename T>
-size_t OctreeVoxelRasterizer::required_size(size_t N) {
-    char* size = nullptr;
-    return (reinterpret_cast<uintptr_t>(size) + MEM_ALIGNMENT - 1) & ~(MEM_ALIGNMENT - 1);
-}
-
 OctreeVoxelRasterizer::GeometryState OctreeVoxelRasterizer::GeometryState::from_chunk(char*& chunk, size_t N) {
     GeometryState geom;
     obtain(chunk, geom.depths, N, MEM_ALIGNMENT);
