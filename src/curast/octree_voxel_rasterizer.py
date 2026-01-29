@@ -30,7 +30,7 @@ class OctreeVoxelRasterizer:
             raster_settings.with_distloss
         )
 
-        num_rendered, color, depth, alpha, distloss, geom_buffer, binning_buffer, img_buffer = cuda.rasterize_cuda_voxels(*args)
+        num_rendered, color, depth, alpha, distloss, geom_buffer, binning_buffer, img_buffer = cuda.rasterize_octree_voxels(*args)
 
         return color, depth, alpha, distloss
         
